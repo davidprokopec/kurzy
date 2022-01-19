@@ -17,34 +17,42 @@ spl_autoload_register(function ($className) {
 
 <body>
 	<h1>události</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Lektor</th>
-				<th>Kuzr / běh</th>
-				<th>Název</th>
-				<th>Začátek</th>
-				<th>Trvání</th>
-				<th>Místo</th>
-				<th></th>
-				<th></th>
-			</tr>
-		</thead>
-		<?php foreach (Udalost::getAll() as $udalost) : ?>
-			<tr>
-				<td><?= $udalost->id ?></td>
-				<td><?= $udalost->lektor_clovek_id ?></td>
-				<td><?= $udalost->behy_id ?></td>
-				<td><?= $udalost->nazev ?></td>
-				<td><?= $udalost->zacatek ?></td>
-				<td><?= $udalost->trvani ?></td>
-				<td><?= $udalost->mistnost ?></td>
-				<td><a href="edit.php?id=<?= $udalost->id ?>">Upravit</a></td>
-				<td><a href="smazat.php?id=<?= $udalost->id ?>">Smazat</a></td>
-			</tr>
-		<?php endforeach; ?>
-	</table>
+	<?php $udalosti = Udalost::getAll(); ?>
+	<?php if (!empty($udalosti)) : ?>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Lektor</th>
+					<th>Kuzr / běh</th>
+					<th>Název</th>
+					<th>Začátek</th>
+					<th>Trvání</th>
+					<th>Místo</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<?php foreach ($udalosti as $udalost) : ?>
+				<tr>
+					<td><?= $udalost->id ?></td>
+					<td><?= $udalost->lektor_clovek_id ?></td>
+					<td><?= $udalost->behy_id ?></td>
+					<td><?= $udalost->nazev ?></td>
+					<td><?= $udalost->zacatek ?></td>
+					<td><?= $udalost->trvani ?></td>
+					<td><?= $udalost->mistnost ?></td>
+					<td><a href="edit.php?id=<?= $udalost->id ?>">Upravit</a></td>
+					<td><a href="smazat.php?id=<?= $udalost->id ?>">Smazat</a></td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+	<?php else : ?>
+		<p>nejsou zatim zadane zadne udalosti</p>
+	<?php endif; ?>
+	<p>
+		<a href="edit.php">nova udalost</a>
+	</p>
 </body>
 
 </html>
