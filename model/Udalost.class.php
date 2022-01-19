@@ -51,4 +51,35 @@ class udalost
 
 		return $udalostStmt->fetch();
 	}
+
+	public function save()
+	{
+		$connection = (new Db())->getConnection();
+		if ($this->id < 1) {
+			$sql = "INSERT INTO udalosti(lektor_clovek_id, behy_id, zacatek, trvani, mistnost) VALUES (:lektor, :kurz, :zacatek, :trvani, :mistnost)";
+
+			$insertStmt = $connection->prepare($sql);
+			$insertStmt->bindParam(":lektor", $this->lektor_clovek_id, PDO::PARAM_INT);
+			$insertStmt->bindParam(":kurz", $this->behy_id, PDO::PARAM_INT);
+			$insertStmt->bindParam(":mistnost", $this->mistnost, PDO::PARAM_INT);
+			$insertStmt->bindParam(":zacatek", $this->zacatek);
+			$insertStmt->bindParam(":trvani", $this->trvani);
+
+			if ($insertStmt->execute()) {
+				$this->id = $connection->lastInsertId();
+				return true;
+			} else
+				return false;
+		} else {
+			$sql = "UPDATE udalosti SET lektor_clovek_id = :lektor, behy_id = :kurz, zacatek = :zacatek, trvani = :trvani, mistnost = :mistnost WHERE id = :id";
+
+			$insertStmt = $connection->prepare($sql);
+			$insertStmt->bindParam(":lektor", $this->lektor_clovek_id, PDO::PARAM_INT);
+			$insertStmt->bindParam(":kurz", $this->behy_id, PDO::PARAM_INT);
+			$insertStmt->bindParam(":mistnost", $this->mistnost, PDO::PARAM_INT);
+			$insertStmt->bindParam(":zacatek", $this->zacatek);
+			$insertStmt->bindParam(":trvani", $this->trvani);
+			$insertStmt->bindParam(":id", )
+		}
+	}
 }
